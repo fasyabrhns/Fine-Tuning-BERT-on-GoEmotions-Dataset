@@ -1,28 +1,50 @@
-Muhammad Farhan
+# Fine-tuning DistilBERT for Emotion Detection
 
-Fasya Burhanis Syauqi
+## 👥 Team Information
 
-# GoEmotions: Multi-Label Emotion Classification
+**Course:** Deep Learning  
+**Institution:** Telkom University  
 
-![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
-![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-orange)
-![HuggingFace](https://img.shields.io/badge/Transformers-4.30%2B-yellow)
-![Task](https://img.shields.io/badge/Task-Multi--Label-red)
+| Name | NIM |
+| :--- | :--- |
+| **Fasya Burhanis Syauqi** | 1103223054 |
+| **Muhammad Muhammad Farhan** | 11032320187 |
 
-Proyek ini mengimplementasikan model **Multi-Label Classification** menggunakan **DistilBERT** untuk mendeteksi emosi kompleks dalam teks. Berbeda dengan klasifikasi standar, model ini mampu memprediksi **lebih dari satu emosi** sekaligus untuk satu kalimat input.
+---
 
-##  Tentang Dataset
-Dataset yang digunakan adalah **GoEmotions (Simplified)** yang dirilis oleh Google Research.
-- **Total Label:** 28 Kategori Emosi (termasuk *Neutral*).
-- **Tipe:** Multi-label (Satu teks bisa memiliki label [0, 1, 0, ..., 1]).
-- **Contoh Label:** `Admiration`, `Amusement`, `Anger`, `Joy`, `Fear`, `Surprise`, dll.
+## 🎯 Purpose
 
-##  Struktur Proyek
-```text
-project_goemotions/
-├── notebooks/
-│   └── Task2_GoEmotions.ipynb   # Notebook Training & Fix Error Handling
-├── reports/
-│   └── report.md                # Laporan analisis F1-Score
-├── requirements.txt             # Dependencies
-└── README.md                    # Dokumentasi
+This repository contains the implementation of **Task 2: Multi-Label Classification**.
+
+The objective is to fine-tune a pre-trained **DistilBERT** model to detect human emotions in text. Unlike standard classification, a single text input here can be associated with multiple emotions simultaneously.
+
+## 🔍 Project Overview
+
+### The Task: Multi-Label Classification
+We utilize the **GoEmotions** dataset to identify subtle emotions in Reddit comments. The model must output a probability vector where multiple classes can be valid (output > threshold).
+
+### The Model: DistilBERT Base Uncased
+* **Architecture:** Distilled version of BERT (Transformer Encoder).
+* **Approach:** We configure the model with `problem_type="multi_label_classification"` which utilizes **BCEWithLogitsLoss** for optimization.
+
+### The Dataset: GoEmotions (Simplified)
+* **Input:** A raw text comment.
+* **Output:** Binary vector representing 28 possible emotions (e.g., Admiration, Joy, Anger, Neutral, etc.).
+
+---
+
+## 📊 Technical Approach
+
+### Model Configuration
+* **Base Model:** `distilbert-base-uncased`
+* **Tokenizer:** DistilBertTokenizer
+* **Framework:** PyTorch & Hugging Face Transformers
+
+### Training Configuration
+* **Batch Size:** 32
+* **Learning Rate:** 2e-5
+* **Epochs:** 3
+* **Optimizer:** AdamW
+
+### Results
+The model achieved a Micro F1-Score and Accuracy of approximately **96.9%** on the validation set.
